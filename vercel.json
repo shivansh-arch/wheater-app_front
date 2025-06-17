@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/weather",
+      "destination": "https://wheater-bakcend.onrender.com/weather"
+    }
+  ]
+}
