@@ -9,41 +9,60 @@
   <style>
     body {
       font-family: 'Inter', sans-serif;
-      background-color: #eef2f7; /* Lighter blue-gray background */
+      background: linear-gradient(135deg, #4c669f, #2e4a86);
+    }
+    .glass-container {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .input-glass {
+        background: rgba(255, 255, 255, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: white;
+    }
+    .input-glass::placeholder {
+        color: rgba(255, 255, 255, 0.7);
+    }
+    .input-glass:focus {
+        background: rgba(255, 255, 255, 0.25);
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5);
     }
   </style>
 </head>
-<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+<body class="bg-gray-900 min-h-screen flex items-center justify-center p-4">
 
   <!-- Main Application Container -->
-  <div class="app-container bg-white p-6 sm:p-8 rounded-2xl shadow-xl w-full max-w-lg mx-auto transition-all duration-300 transform scale-100">
+  <div class="app-container glass-container p-6 sm:p-8 rounded-3xl shadow-2xl w-full max-w-lg mx-auto transition-all duration-300 transform scale-100 text-white">
 
     <!-- Header -->
-    <h1 class="text-center text-4xl font-extrabold text-blue-600 mb-8 tracking-tight">Weather Hub</h1>
+    <h1 class="text-center text-4xl sm:text-5xl font-extrabold text-white mb-8 tracking-wide drop-shadow-lg">Weather Hub</h1>
 
     <!-- Search Form -->
     <form id="weatherForm" class="space-y-6">
       <div class="form-group relative">
-        <label for="city" class="block text-gray-700 font-semibold mb-2">City Name (Optional):</label>
+        <label for="city" class="block text-gray-200 font-semibold mb-2">City Name (Optional):</label>
         <input type="text" id="city" placeholder="e.g., London, New York"
-               class="w-full px-4 py-3 rounded-xl border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200">
+               class="w-full px-4 py-3 rounded-xl input-glass focus:ring-4 focus:ring-blue-400 focus:ring-opacity-50 transition-all duration-200">
       </div>
-      <div class="form-group flex items-center justify-between space-x-4">
-        <div class="w-1/2">
-          <label for="lat" class="block text-gray-700 font-semibold mb-2">Latitude:</label>
+      <div class="form-group flex flex-col sm:flex-row items-center justify-between sm:space-x-4 space-y-4 sm:space-y-0">
+        <div class="w-full sm:w-1/2">
+          <label for="lat" class="block text-gray-200 font-semibold mb-2">Latitude:</label>
           <input type="number" step="any" id="lat" placeholder="e.g., 28.61"
-                 class="w-full px-4 py-3 rounded-xl border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200">
+                 class="w-full px-4 py-3 rounded-xl input-glass focus:ring-4 focus:ring-blue-400 focus:ring-opacity-50 transition-all duration-200">
         </div>
-        <div class="w-1/2">
-          <label for="lon" class="block text-gray-700 font-semibold mb-2">Longitude:</label>
+        <div class="w-full sm:w-1/2">
+          <label for="lon" class="block text-gray-200 font-semibold mb-2">Longitude:</label>
           <input type="number" step="any" id="lon" placeholder="e.g., 77.23"
-                 class="w-full px-4 py-3 rounded-xl border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200">
+                 class="w-full px-4 py-3 rounded-xl input-glass focus:ring-4 focus:ring-blue-400 focus:ring-opacity-50 transition-all duration-200">
         </div>
       </div>
-      <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl shadow-lg transform transition-all duration-200 ease-in-out hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+      <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-xl shadow-lg transform transition-all duration-200 ease-in-out hover:scale-105 active:scale-95 focus:outline-none focus:ring-4 focus:ring-blue-400 focus:ring-opacity-70">
         Get Weather & Location
       </button>
-      <p class="text-sm text-center text-gray-500 mt-4">You can use either a city name OR latitude and longitude.</p>
+      <p class="text-sm text-center text-gray-300 mt-4">You can use either a city name OR latitude and longitude.</p>
     </form>
 
     <!-- Feedback and Loading/Error Messages -->
@@ -54,19 +73,19 @@
       
       <!-- Location Info -->
       <div class="location-info text-center">
-          <h2 id="placeName" class="text-3xl font-bold text-gray-800 mb-2"></h2>
-          <p id="coordinates" class="text-gray-500 text-sm italic"></p>
+          <h2 id="placeName" class="text-3xl font-bold text-white mb-2 drop-shadow-md"></h2>
+          <p id="coordinates" class="text-gray-300 text-sm italic"></p>
       </div>
 
       <!-- Current Weather Card -->
-      <div class="current-weather bg-gray-50 p-6 rounded-2xl shadow-md border border-gray-200">
-        <h3 class="text-2xl font-bold text-blue-600 mb-4 border-b pb-2">Current Weather</h3>
-        <div id="currentWeatherDetails" class="space-y-4"></div>
+      <div class="current-weather glass-container p-6 rounded-2xl shadow-md border-gray-600">
+        <h3 class="text-2xl font-bold text-blue-300 mb-4 border-b border-gray-600 pb-2">Current Weather</h3>
+        <div id="currentWeatherDetails" class="space-y-4 text-gray-200"></div>
       </div>
 
       <!-- 7-Day Forecast Card -->
-      <div class="forecast bg-gray-50 p-6 rounded-2xl shadow-md border border-gray-200">
-        <h3 class="text-2xl font-bold text-blue-600 mb-4 border-b pb-2">7-Day Forecast</h3>
+      <div class="forecast glass-container p-6 rounded-2xl shadow-md border-gray-600">
+        <h3 class="text-2xl font-bold text-blue-300 mb-4 border-b border-gray-600 pb-2">7-Day Forecast</h3>
         <div id="forecastDetails" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"></div>
       </div>
     </div>
@@ -113,14 +132,14 @@
 
         if (!city && (!lat || !lon)) {
             feedbackDiv.style.display = 'block';
-            feedbackDiv.className = 'bg-red-200 text-red-700 font-medium px-4 py-3 rounded-xl shadow-md';
+            feedbackDiv.className = 'bg-red-500 text-white font-medium px-4 py-3 rounded-xl shadow-md';
             feedbackDiv.textContent = 'Please enter a city name or latitude and longitude.';
             weatherDisplayDiv.style.display = 'none';
             return;
         }
 
         feedbackDiv.style.display = 'block';
-        feedbackDiv.className = 'bg-blue-200 text-blue-700 font-medium px-4 py-3 rounded-xl shadow-md';
+        feedbackDiv.className = 'bg-blue-500 text-white font-medium px-4 py-3 rounded-xl shadow-md';
         feedbackDiv.textContent = 'Fetching weather and location data...';
         weatherDisplayDiv.style.display = 'none';
 
@@ -158,29 +177,29 @@
           const currentUnits = data.currentWeatherUnits;
           if (current && currentUnits) {
             currentWeatherDetailsDiv.innerHTML = `
-              <div class="flex justify-between items-center py-2 border-b border-gray-200">
-                <span class="text-gray-600 font-medium">Temperature:</span>
-                <span class="text-gray-800 font-bold">${current.temperature_2m ?? 'N/A'}${currentUnits.temperature_2m ?? ''}</span>
+              <div class="flex justify-between items-center py-2 border-b border-gray-600">
+                <span class="text-gray-300 font-medium">Temperature:</span>
+                <span class="text-white font-bold">${current.temperature_2m ?? 'N/A'}${currentUnits.temperature_2m ?? ''}</span>
               </div>
-              <div class="flex justify-between items-center py-2 border-b border-gray-200">
-                <span class="text-gray-600 font-medium">Feels Like:</span>
-                <span class="text-gray-800 font-bold">${current.apparent_temperature ?? 'N/A'}${currentUnits.apparent_temperature ?? ''}</span>
+              <div class="flex justify-between items-center py-2 border-b border-gray-600">
+                <span class="text-gray-300 font-medium">Feels Like:</span>
+                <span class="text-white font-bold">${current.apparent_temperature ?? 'N/A'}${currentUnits.apparent_temperature ?? ''}</span>
               </div>
-              <div class="flex justify-between items-center py-2 border-b border-gray-200">
-                <span class="text-gray-600 font-medium">Humidity:</span>
-                <span class="text-gray-800 font-bold">${current.relative_humidity_2m ?? 'N/A'}${currentUnits.relative_humidity_2m ?? ''}</span>
+              <div class="flex justify-between items-center py-2 border-b border-gray-600">
+                <span class="text-gray-300 font-medium">Humidity:</span>
+                <span class="text-white font-bold">${current.relative_humidity_2m ?? 'N/A'}${currentUnits.relative_humidity_2m ?? ''}</span>
               </div>
-              <div class="flex justify-between items-center py-2 border-b border-gray-200">
-                <span class="text-gray-600 font-medium">Wind Speed:</span>
-                <span class="text-gray-800 font-bold">${current.wind_speed_10m ?? 'N/A'}${currentUnits.wind_speed_10m ?? ''}</span>
+              <div class="flex justify-between items-center py-2 border-b border-gray-600">
+                <span class="text-gray-300 font-medium">Wind Speed:</span>
+                <span class="text-white font-bold">${current.wind_speed_10m ?? 'N/A'}${currentUnits.wind_speed_10m ?? ''}</span>
               </div>
               <div class="flex justify-between items-center py-2">
-                <span class="text-gray-600 font-medium">Condition:</span>
-                <span class="text-gray-800 font-bold">${getWeatherDescription(current.weather_code)}</span>
+                <span class="text-gray-300 font-medium">Condition:</span>
+                <span class="text-white font-bold">${getWeatherDescription(current.weather_code)}</span>
               </div>
             `;
           } else {
-            currentWeatherDetailsDiv.innerHTML = '<p class="text-center text-gray-500">Current weather data not available.</p>';
+            currentWeatherDetailsDiv.innerHTML = '<p class="text-center text-gray-400">Current weather data not available.</p>';
           }
           
           // Display 7-Day Forecast
@@ -191,27 +210,27 @@
           if (daily && daily.time && daily.time.length > 0) {
             for (let i = 0; i < daily.time.length; i++) { 
               const dayDiv = document.createElement('div');
-              dayDiv.className = 'bg-white p-4 rounded-xl shadow-sm border border-gray-200';
+              dayDiv.className = 'glass-container p-4 rounded-xl shadow-md';
               dayDiv.innerHTML = `
-                <p class="text-lg font-bold text-blue-600 mb-2">${new Date(daily.time[i]).toLocaleDateString('en-US', { weekday: 'long' })}</p>
-                <p class="text-sm text-gray-500 mb-2">${new Date(daily.time[i]).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</p>
-                <div class="space-y-1 text-sm">
-                    <p><span class="text-gray-600">Max Temp:</span> <span class="font-bold">${daily.temperature_2m_max[i] ?? 'N/A'}${dailyUnits?.temperature_2m_max ?? '°C'}</span></p>
-                    <p><span class="text-gray-600">Min Temp:</span> <span class="font-bold">${daily.temperature_2m_min[i] ?? 'N/A'}${dailyUnits?.temperature_2m_min ?? '°C'}</span></p>
-                    <p><span class="text-gray-600">Condition:</span> <span class="font-bold">${getWeatherDescription(daily.weather_code[i])}</span></p>
-                    ${daily.sunrise && daily.sunrise[i] ? `<p class="text-xs text-gray-500"><span class="font-medium">Sunrise:</span> ${new Date(daily.sunrise[i]).toLocaleTimeString('en-US', {hour: '2-digit', minute:'2-digit'})}</p>` : ''}
-                    ${daily.sunset && daily.sunset[i] ? `<p class="text-xs text-gray-500"><span class="font-medium">Sunset:</span> ${new Date(daily.sunset[i]).toLocaleTimeString('en-US', {hour: '2-digit', minute:'2-digit'})}</p>` : ''}
+                <p class="text-lg font-bold text-blue-300 mb-2">${new Date(daily.time[i]).toLocaleDateString('en-US', { weekday: 'long' })}</p>
+                <p class="text-sm text-gray-300 mb-2">${new Date(daily.time[i]).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</p>
+                <div class="space-y-1 text-sm text-white">
+                    <p><span class="text-gray-300">Max Temp:</span> <span class="font-bold">${daily.temperature_2m_max[i] ?? 'N/A'}${dailyUnits?.temperature_2m_max ?? '°C'}</span></p>
+                    <p><span class="text-gray-300">Min Temp:</span> <span class="font-bold">${daily.temperature_2m_min[i] ?? 'N/A'}${dailyUnits?.temperature_2m_min ?? '°C'}</span></p>
+                    <p><span class="text-gray-300">Condition:</span> <span class="font-bold">${getWeatherDescription(daily.weather_code[i])}</span></p>
+                    ${daily.sunrise && daily.sunrise[i] ? `<p class="text-xs text-gray-300"><span class="font-medium">Sunrise:</span> ${new Date(daily.sunrise[i]).toLocaleTimeString('en-US', {hour: '2-digit', minute:'2-digit'})}</p>` : ''}
+                    ${daily.sunset && daily.sunset[i] ? `<p class="text-xs text-gray-300"><span class="font-medium">Sunset:</span> ${new Date(daily.sunset[i]).toLocaleTimeString('en-US', {hour: '2-digit', minute:'2-digit'})}</p>` : ''}
                 </div>
               `;
               forecastDetailsDiv.appendChild(dayDiv);
             }
           } else {
-            forecastDetailsDiv.innerHTML = '<p class="text-center text-gray-500">Forecast data not available.</p>';
+            forecastDetailsDiv.innerHTML = '<p class="text-center text-gray-400">Forecast data not available.</p>';
           }
 
         } catch (err) {
           console.error('Frontend Error:', err);
-          feedbackDiv.className = 'bg-red-200 text-red-700 font-medium px-4 py-3 rounded-xl shadow-md';
+          feedbackDiv.className = 'bg-red-500 text-white font-medium px-4 py-3 rounded-xl shadow-md';
           feedbackDiv.textContent = `Error: ${err.message}. Please check your input or try again later.`;
           weatherDisplayDiv.style.display = 'none';
         }
